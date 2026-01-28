@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surgical Guide Library | GHRCE Research</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- 1. VISUAL STYLE (CSS) --- */
+        :root {
+            --ghrce-blue: #003366;
+            --ghrce-light: #e6f0fa;
+            --white: #ffffff;
+            --text: #333333;
+            --border: #dddddd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: var(--text);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--ghrce-blue);
+            color: var(--white);
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header-content h1 { margin: 0; font-size: 1.8rem; }
+        .header-content p { margin: 5px 0 0; opacity: 0.9; font-weight: 300; }
+
+        /* Hero Image Section */
+        .hero {
+            background: linear-gradient(rgba(0,51,102,0.8), rgba(0,51,102,0.8)), url('https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .hero h2 { font-size: 2.5rem; margin-bottom: 10px; }
+
+        /* Guide Types (3 Images) */
+        .guide-cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: -50px; /* Overlap effect */
+            padding-bottom: 40px;
+        }
+        .card {
+            background: white;
+            width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+            border: 1px solid var(--border);
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--ghrce-blue); }
+        .card-header {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        .bg-pilot { background: #3498db; }
+        .bg-sleeve { background: #2c3e50; }
+        .bg-slot { background: #8e44ad; }
+        
+        .card-body { padding: 20px; text-align: center; }
+        .card-body h3 { color: var(--ghrce-blue); margin-top: 0; }
+
+        /* The Library (Search Tool) */
+        .library-section {
+            background: white;
+            padding: 60px 0;
+            border-top: 1px solid var(--border);
+        }
+        .search-box {
+            background: var(--ghrce-light);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #b8d4f0;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; color: var(--ghrce-blue); }
+        .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; }
+
+        .btn-download {
+            background-color: var(--ghrce-blue);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .btn-download:hover { background-color: #002244; }
+
+        /* Results Area */
+        #result-display {
+            display: none; /* Hidden by default */
+            margin-top: 20px;
+            padding: 20px;
+            background: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 5px;
+            text-align: center;
+        }
+        #result-display a {
+            display: inline-block;
+            margin-top: 10px;
+            background: #2e7d32;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ffeeba;
+        }
+
+        /* Footer */
+        footer {
+            background: #222;
+            color: #aaa;
+            padding: 40px 0;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .footer-grid h4 { color: white; border-bottom: 1px solid #444; padding-bottom: 10px; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <h1>G H Raisoni College of Engineering, Nagpur</h1>
+            <p>Department of Dental Research & Development</p>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <h2>Surgical Guide Design Library</h2>
+            <p>A standardized repository for Pilot, Sleeve, and Slot-based guides.</p>
+            <br><br>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="guide-cards">
+            <div class="card" onclick="selectGuide('Pilot')">
+                <div class="card-header bg-pilot"><i class="fas fa-bullseye"></i></div>
+                <div class="card-body">
+                    <h3>Pilot Drill Guide</h3>
+                    <p>Initial osteotomy guidance.</p>
+                </div>
+            </div>
+            <div class="card" onclick="selectGuide('Sleeve')">
+                <div class="card-header bg-sleeve"><i class="fas fa-ring"></i></div>
+                <div class="card-body">
+                    <h3>Sleeve Based Guide</h3>
+                    <p>Standard metal sleeve guidance.</p>
+                </div>
+            </div>
+            <div class="card" onclick="selectGuide('Slot')">
+                <div class="card-header bg-slot"><i class="fas fa-vector-square"></i></div>
+                <div class="card-body">
+                    <h3>Slot Based Guide</h3>
+                    <p>Lateral entry for limited opening.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="library-section" id="library">
+        <div class="container">
+            <h2><i class="fas fa-search"></i> Select Design Parameters</h2>
+            
+            <div class="search-box">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>1. Guide Type</label>
+                        <select id="guideType">
+                            <option value="Pilot">Pilot Drill Guide</option>
+                            <option value="Sleeve">Sleeve Based Guide</option>
+                            <option value="Slot" selected>Slot Based Guide</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>2. Tooth Number (FDI)</label>
+                        <select id="toothNumber">
+                            <optgroup label="Quadrant 1 (Upper Right)">
+                                <option value="T11">11 - Central Incisor</option>
+                                <option value="T12">12 - Lateral Incisor</option>
+                                <option value="T13">13 - Canine</option>
+                                <option value="T14">14 - 1st Premolar</option>
+                                <option value="T15">15 - 2nd Premolar</option>
+                                <option value="T16">16 - 1st Molar</option>
+                                <option value="T17">17 - 2nd Molar</option>
+                                <option value="T18">18 - 3rd Molar</option>
+                            </optgroup>
+                            <optgroup label="Quadrant 2 (Upper Left)">
+                                <option value="T21" selected>21 - Central Incisor</option>
+                                <option value="T22">22 - Lateral Incisor</option>
+                                <option value="T23">23 - Canine</option>
+                                <option value="T24">24 - 1st Premolar</option>
+                                <option value="T25">25 - 2nd Premolar</option>
+                                <option value="T26">26 - 1st Molar</option>
+                                <option value="T27">27 - 2nd Molar</option>
+                                <option value="T28">28 - 3rd Molar</option>
+                            </optgroup>
+                            <optgroup label="Quadrant 3 (Lower Left)">
+                                <option value="T31">31 - Central Incisor</option>
+                                <option value="T32">32 - Lateral Incisor</option>
+                                <option value="T33">33 - Canine</option>
+                                <option value="T34">34 - 1st Premolar</option>
+                                <option value="T35">35 - 2nd Premolar</option>
+                                <option value="T36">36 - 1st Molar</option>
+                                <option value="T37">37 - 2nd Molar</option>
+                                <option value="T38">38 - 3rd Molar</option>
+                            </optgroup>
+                            <optgroup label="Quadrant 4 (Lower Right)">
+                                <option value="T41">41 - Central Incisor</option>
+                                <option value="T42">42 - Lateral Incisor</option>
+                                <option value="T43">43 - Canine</option>
+                                <option value="T44">44 - 1st Premolar</option>
+                                <option value="T45">45 - 2nd Premolar</option>
+                                <option value="T46">46 - 1st Molar</option>
+                                <option value="T47">47 - 2nd Molar</option>
+                                <option value="T48">48 - 3rd Molar</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>3. Angulation (Tilt)</label>
+                        <select id="angulation">
+                            <option value="TypeA">Type A (0° Straight)</option>
+                            <option value="TypeB">Type B (5°-10° Mild)</option>
+                            <option value="TypeC">Type C (15°-20° Moderate)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>4. Implant Depth</label>
+                        <select id="depth">
+                            <option value="D1">D1 (Short 8-10mm)</option>
+                            <option value="D2">D2 (Medium 11-13mm)</option>
+                            <option value="D3">D3 (Long 14-16mm)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>5. Implant Width</label>
+                        <select id="width">
+                            <option value="W1">W1 (Narrow 3.0-3.3mm)</option>
+                            <option value="W2">W2 (Standard 3.5-4.0mm)</option>
+                            <option value="W3">W3 (Wide 4.2mm)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn-download" onclick="generateLink()">Find & Download Design File (.txt)</button>
+                
+                <div class="disclaimer">
+                    <i class="fas fa-info-circle"></i> <strong>Note:</strong> Files are named automatically (e.g., <em>Slot_T21_TypeA_D1_W1.txt</em>). If you receive a "404 Error," it means that specific combination has not yet been uploaded to the repository.
+                </div>
+
+                <div id="result-display">
+                    <h3>File Located!</h3>
+                    <p>Click below to download your design parameters.</p>
+                    <a href="#" id="download-link" target="_blank" download>Download .txt File</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container footer-grid">
+            <div>
+                <h4>Principal Researcher</h4>
+                <p><strong>Vyankatesh Naidu</strong><br>Research Scholar<br>G H Raisoni College of Engineering</p>
+            </div>
+            <div>
+                <h4>Research Guide</h4>
+                <p><strong>Dr. Santosh Jaju</strong><br>Deputy Director & Dean (R&D)</p>
+            </div>
+            <div>
+                <h4>Address</h4>
+                <p>CRPF Gate No.3, Digdoh Hills,<br>Hingna Road, Nagpur,<br>Maharashtra 440016</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 30px; border-top: 1px solid #444; padding-top: 20px;">
+            &copy; 2026 GHRCE Dental Research. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        function selectGuide(type) {
+            document.getElementById('guideType').value = type;
+            document.getElementById('library').scrollIntoView({behavior: "smooth"});
+        }
+
+        function generateLink() {
+            // 1. Get Values
+            var guide = document.getElementById('guideType').value;
+            var tooth = document.getElementById('toothNumber').value;
+            var ang = document.getElementById('angulation').value;
+            var depth = document.getElementById('depth').value;
+            var width = document.getElementById('width').value;
+
+            // 2. Build Filename: Guide_Tooth_Ang_Depth_Width.txt
+            var filename = guide + "_" + tooth + "_" + ang + "_" + depth + "_" + width + ".txt";
+            
+            // 3. Update Link (Assumes files are in "library" folder)
+            var finalLink = "library/" + filename;
+            
+            var linkBtn = document.getElementById('download-link');
+            linkBtn.href = finalLink;
+            linkBtn.innerText = "Download " + filename;
+            
+            document.getElementById('result-display').style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
